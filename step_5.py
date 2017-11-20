@@ -5,11 +5,11 @@ import time
 import urllib2
 import sys,os
 import traceback
-#python G:/ZGA/step_5.py G:\\ZGA\\step_4\\xs\\ter\\ter_fold_4_5_stage_4_5_fasta_500\\merge_500.fa C:\Users\ALIENWARE\Desktop\
+#python G:/ZGA/step_5.py G:\\ZGA\\step_4\\xs\\ter\\ter_fold_4_5_stage_4_5_fasta_500\\merge_500.fa #C:\Users\ALIENWARE\Desktop\
 #python step_5.py input_file output_dir
 input_file=sys.argv[1]
-output_dir=sys.argv[2]
-print input_file,output_dir
+#output_dir=sys.argv[2]
+#print input_file,output_dir
 driver=webdriver.Firefox()
 driver.get('http://meme-suite.org/tools/meme-chip')
 upload=driver.find_element_by_name('sequences_file')
@@ -57,7 +57,7 @@ for i in range(1000):
 			if 'Done' in htmlCode:
 				print htmlCode,'bbb'
 				#cmd='wget meme-suite.org/opal-jobs/'+str(redirected_url).split('/')[-1]+'/'+str(redirected_url).split('/')[-1]+'.tar.gz' +' -O '+input_file.split('.')[0]+'.tar.gz'+' -P ' +output_dir
-				cmd='wget meme-suite.org/opal-jobs/'+str(redirected_url).split('/')[-1].split('=')[-1]+'/'+str(redirected_url).split('/')[-1].split('=')[-1]+'.tar.gz'
+				cmd='wget meme-suite.org/opal-jobs/'+str(redirected_url).split('/')[-1].split('=')[-1]+'/'+str(redirected_url).split('/')[-1].split('=')[-1]+'.tar.gz'+' -O '+ '/'.join(input_file.replace('\\','/').split('/')[0:-1])+'/'+input_file.split('\\')[-1].split('.')[0]+'.tar.gz'
 				print cmd
 				print os.system(cmd)
 				os.system(cmd)
@@ -66,6 +66,7 @@ for i in range(1000):
 				continue
 		elif tmp==1:
 			print('complete...^.^!')
+			driver.quit()  
 			exit()
 	#except:
 	except urllib2.HTTPError,e:
